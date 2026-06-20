@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>首爾姊妹輕奢之旅</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* 主色系：天空藍與鵝黃色 */
+            --sky-blue: #7EC8E3; 
+            --sky-blue-light: #E0F4FB;
+            --sky-blue-dark: #4A9CBA;
+            --goose-yellow: #FFF9C4;
+            --goose-yellow-dark: #FBC02D;
+            --bg-color: #F7FBFC;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --card-bg: #FFFFFF;
+            --nav-height: 65px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: calc(var(--nav-height) + 20px);
+        }
+
+        /* Header (App Style) */
+        header {
+            background: linear-gradient(135deg, var(--sky-blue), var(--sky-blue-dark));
+            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(126, 200, 227, 0.3);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+
+        /* 底部導覽列 (Bottom Navigation) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding-bottom: env(safe-area-inset-bottom); /* 適配 iPhone 底部 */
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            height: 100%;
+            transition: color 0.3s;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--sky-blue-dark);
+        }
+
+        .nav-item.active i {
+            transform: scale(1.1);
+            color: var(--goose-yellow-dark);
+        }
+
+        /* 核心左右滑動容器 */
+        .swiper-container {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            width: 500%; /* 5 個分頁 */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform;
+        }
+
+        .swiper-slide {
+            width: 20%; /* 每個佔 1/5 */
+            padding: 0 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 每日行程次選單 (Day Tabs) */
+        .day-nav-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0 15px 0;
+            scrollbar-width: none; /* Firefox */
+        }
+        .day-nav-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .day-tab {
+            flex: 0 0 auto;
+            background-color: white;
+            border: 1px solid var(--sky-blue-light);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .day-tab.active {
+            background-color: var(--goose-yellow);
+            color: var(--text-dark);
+            border-color: var(--goose-yellow-dark);
+            box-shadow: 0 4px 8px rgba(251, 192, 45, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .day-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .day-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* UI Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--sky-blue);
+        }
+
+        .card.yellow-accent {
+            border-top: 4px solid var(--goose-yellow-dark);
+        }
+
+        /* Event Formatting */
+        .event-time {
+            font-size: 0.8rem;
+            color: var(--sky-blue-dark);
+            font-weight: 700;
+            background-color: var(--sky-blue-light);
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .event-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .map-btn {
+            background-color: var(--goose-yellow);
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Sections content layout */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--sky-blue-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #eee;
+        }
+        .icon-box:last-child {
+            border-bottom: none; margin-bottom: 0; padding-bottom: 0;
+        }
+        .icon-box i {
+            font-size: 1.5rem;
+            color: var(--goose-yellow-dark);
+            width: 40px;
+            text-align: center;
+            margin-right: 12px;
+        }
+        .icon-box-text h3 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+        .icon-box-text p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .alert-box {
+            background-color: #FFF3CD;
+            border-left: 4px solid #FFC107;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        
+        .budget-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .budget-row:last-child { border-bottom: none; }
+        .budget-row .price { font-weight: 700; color: var(--sky-blue-dark); }
+        .budget-total {
+            background-color: var(--goose-yellow);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🇰🇷 首爾姊妹 6天5夜輕奢之旅</h1>
+        <p>2026.07.15 - 2026.07.21</p>
+    </header>
+
+    <!-- 左右滑動主要區域 (5個分頁) -->
+    <div class="swiper-container" id="swiperContainer">
+        <div class="swiper-wrapper" id="swiperWrapper">
+            
+            <!-- ====== Slide 0: 每日行程 ====== -->
+            <div class="swiper-slide">
+                <!-- 每日切換次選單 -->
+                <div class="day-nav-container" id="dayNavContainer">
+                    <button class="day-tab active" onclick="switchDay(1)">7/15<br>Day 1</button>
+                    <button class="day-tab" onclick="switchDay(2)">7/16<br>Day 2</button>
+                    <button class="day-tab" onclick="switchDay(3)">7/17<br>Day 3</button>
+                    <button class="day-tab" onclick="switchDay(4)">7/18<br>Day 4</button>
+                    <button class="day-tab" onclick="switchDay(5)">7/19<br>Day 5</button>
+                    <button class="day-tab" onclick="switchDay(6)">7/20<br>Day 6</button>
+                    <button class="day-tab" onclick="switchDay(7)">7/21<br>Day 7</button>
+                </div>
+
+                <!-- Day 1 內容 -->
+                <div class="day-content active" id="day-1">
+                    <div class="card">
+                        <span class="event-time">01:25 - 05:00</span>
+                        <div class="event-header"><div class="event-title">啟程 ➔ 仁川機場 T2</div></div>
+                        <div class="event-desc">搭乘真航空 LJ734，準備在飛機上補眠。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">清晨 - 上午</span>
+                        <div class="event-header">
+                            <div class="event-title">汗蒸幕放鬆 (Spa Lei)</div>
+                            <a href="https://maps.google.com/?q=Spa+Lei+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">江南女性專屬汗蒸幕，洗去疲憊補眠，行李可寄放櫃檯。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">下午</span>
+                        <div class="event-header">
+                            <div class="event-title">江南醫美行程</div>
+                            <a href="https://maps.google.com/?q=Gangnam+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">預約好的變美重頭戲，精緻療程與專業諮詢。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">傍晚 - 晚上</span>
+                        <div class="event-header">
+                            <div class="event-title">Starfield COEX & 晚餐</div>
+                            <a href="https://maps.google.com/?q=Starfield+COEX+Mall" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">朝聖星空圖書館拍美照，享受江南晚餐。之後回弘大 Check-in。</div>
+                    </div>
+                </div>
+
+                <!-- Day 2 內容 -->
+                <div class="day-content" id="day-2">
+                    <div class="card">
+                        <span class="event-time">早上</span>
+                        <div class="event-header">
+                            <div class="event-title">安國站人氣早餐</div>
+                            <a href="https://maps.google.com/?q=Cafe+Onion+Anguk" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">Cafe Onion 或 倫敦貝果博物館，用精緻烘焙開啟一天。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">上午</span>
+                        <div class="event-header">
+                            <div class="event-title">景福宮 ＆ 北村韓屋村</div>
+                            <a href="https://maps.google.com/?q=Gyeongbokgung+Palace" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">換上華美韓服，漫步古色古香的宮殿與傳統巷弄。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">下午</span>
+                        <div class="event-header">
+                            <div class="event-title">益善洞文創巷弄</div>
+                            <a href="https://maps.google.com/?q=Ikseondong+Hanok+Village" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">逛逛韓屋改建的復古文創小店與精緻下午茶。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">傍晚 - 晚上</span>
+                        <div class="event-header">
+                            <div class="event-title">南山首爾塔夜景</div>
+                            <a href="https://maps.google.com/?q=N+Seoul+Tower" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">登塔觀看浪漫日落與首爾城市百萬夜景。</div>
+                    </div>
+                </div>
+
+                <!-- Day 3 內容 -->
+                <div class="day-content" id="day-3">
+                    <div class="card">
+                        <span class="event-time">上午</span>
+                        <div class="event-header">
+                            <div class="event-title">望遠市場在地美食</div>
+                            <a href="https://maps.google.com/?q=Mangwon+Market" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">大啖刀削麵、酥炸可樂餅、炸雞丁，感受在地煙火氣。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">下午</span>
+                        <div class="event-header">
+                            <div class="event-title">延南洞文青散策</div>
+                            <a href="https://maps.google.com/?q=Yeonnam-dong" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">飯店周邊充滿設計感的獨立選物店與特色咖啡廳。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">晚上</span>
+                        <div class="event-header">
+                            <div class="event-title">弘大商圈狂歡</div>
+                            <a href="https://maps.google.com/?q=Hongdae+Street" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">享受街頭藝人表演與逛街掃貨，累了隨時回飯店放戰利品！</div>
+                    </div>
+                </div>
+
+                <!-- Day 4 內容 -->
+                <div class="day-content" id="day-4">
+                    <div class="card">
+                        <span class="event-time">上午</span>
+                        <div class="event-header">
+                            <div class="event-title">Starfield 高陽店</div>
+                            <a href="https://maps.google.com/?q=Starfield+Goyang" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">前往腹地超大的高陽複合式商圈走走，或在飯店睡飽充電。</div>
+                    </div>
+                    <div class="card card.yellow-accent">
+                        <span class="event-time">12:00 - 晚上</span>
+                        <div class="event-header">
+                            <div class="event-title">高陽 KINTEX 音樂季 🎸</div>
+                            <a href="https://maps.google.com/?q=KINTEX+Goyang" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">行程最大重頭戲！盡情享受最熱血震撼的現場 Live 演出。</div>
+                    </div>
+                </div>
+
+                <!-- Day 5 內容 -->
+                <div class="day-content" id="day-5">
+                    <div class="card">
+                        <span class="event-time">白天</span>
+                        <div class="event-header">
+                            <div class="event-title">現代百貨 (The Hyundai Seoul)</div>
+                            <a href="https://maps.google.com/?q=The+Hyundai+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">首爾最新室內綠意百貨，進駐大量快閃店與設計師品牌。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">傍晚 - 晚上</span>
+                        <div class="event-header">
+                            <div class="event-title">汝矣島漢江公園</div>
+                            <a href="https://maps.google.com/?q=Yeouido+Hangang+Park" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">租野餐墊，體驗漢江煮麵機配外送橋村炸雞，享受晚風。</div>
+                    </div>
+                </div>
+
+                <!-- Day 6 內容 -->
+                <div class="day-content" id="day-6">
+                    <div class="card">
+                        <span class="event-time">上午</span>
+                        <div class="event-header">
+                            <div class="event-title">清潭洞 FNC 朝聖</div>
+                            <a href="https://maps.google.com/?q=FNC+Entertainment+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">前往經紀公司大樓打卡，專屬的迷妹朝聖巡禮。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">下午</span>
+                        <div class="event-header">
+                            <div class="event-title">明洞商圈最後掃貨</div>
+                            <a href="https://maps.google.com/?q=Myeongdong+Street" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">將還沒買齊的美妝保養品、伴手禮一次補足。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">20:00 - 深夜</span>
+                        <div class="event-header">
+                            <div class="event-title">出發機場 ➔ 貴賓室</div>
+                            <a href="https://maps.google.com/?q=Incheon+Airport+Terminal+1" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">回弘大拿行李，搭機場快線至仁川 T1。退稅後進貴賓室休息。</div>
+                    </div>
+                </div>
+
+                <!-- Day 7 內容 -->
+                <div class="day-content" id="day-7">
+                    <div class="card">
+                        <span class="event-time">00:30 - 02:15</span>
+                        <div class="event-header">
+                            <div class="event-title">平安歸途 ➔ 台灣</div>
+                        </div>
+                        <div class="event-desc">搭乘台灣虎航 IT603 回到溫暖的台灣，旅途圓滿結束！</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== Slide 1: 交通 ====== -->
+            <div class="swiper-slide">
+                <div class="section-title"><i class="fa-solid fa-plane"></i> 航班資訊</div>
+                <div class="card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-plane-departure" style="color: var(--sky-blue-dark);"></i>
+                        <div class="icon-box-text">
+                            <h3>去程：真航空 LJ734</h3>
+                            <p>7/15 01:25 桃園 T1 ➔ 05:00 仁川 T2</p>
+                        </div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-plane-arrival" style="color: var(--goose-yellow-dark);"></i>
+                        <div class="icon-box-text">
+                            <h3>回程：台灣虎航 IT603</h3>
+                            <p>7/21 00:30 仁川 T1 ➔ 02:15 桃園 T1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title"><i class="fa-solid fa-train"></i> 市區交通</div>
+                <div class="card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-train-subway"></i>
+                        <div class="icon-box-text">
+                            <h3>機場快線 AREX (一般列車)</h3>
+                            <p>T1/T2 皆可搭乘，約 50-60 分鐘直達「弘大入口站」，無需轉乘最方便。</p>
+                        </div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-id-card"></i>
+                        <div class="icon-box-text">
+                            <h3>WOWPASS / T-money</h3>
+                            <p>必備神卡！超商或地鐵站皆可儲值，搭車買東西都靠它。</p>
+                        </div>
+                    </div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <div class="icon-box-text">
+                            <h3>必備導航 APP</h3>
+                            <p>強烈建議下載 <strong>Naver Map</strong>，在韓國定位比 Google Maps 準確很多。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== Slide 2: 住宿 ====== -->
+            <div class="swiper-slide">
+                <div class="section-title"><i class="fa-solid fa-bed"></i> 住宿資訊</div>
+                <div class="card yellow-accent">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-building"></i>
+                        <div class="icon-box-text">
+                            <h3>弘大核心商圈住宿</h3>
+                            <p><strong>地址：</strong>133, Yanghwa-ro, Mapo-gu</p>
+                            <p style="margin-top: 5px; color: var(--sky-blue-dark); font-weight: bold;">
+                                <i class="fa-solid fa-location-crosshairs"></i> 弘大入口站旁，地段完美
+                            </p>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com/?q=133+Yanghwa-ro+Mapo-gu+Seoul" target="_blank" class="map-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+                        <i class="fa-solid fa-map-pin"></i> 開啟地圖導航
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <div class="icon-box-text">
+                        <h3>💡 住宿優勢解析</h3>
+                        <ul style="margin-top: 10px; padding-left: 20px; font-size: 0.85rem; color: var(--text-light); line-height: 1.8;">
+                            <li><strong>機場直達：</strong> 搭乘 AREX 機場快線免轉車即可抵達。</li>
+                            <li><strong>主場優勢：</strong> Day 3 逛延南洞與弘大時，隨時可將戰利品拿回房間放。</li>
+                            <li><strong>最後一天：</strong> 前往機場前拉行李箱搭車最從容。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== Slide 3: 行李 ====== -->
+            <div class="swiper-slide">
+                <div class="section-title"><i class="fa-solid fa-suitcase"></i> 行李策略</div>
+                <div class="card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-suitcase-rolling" style="color: var(--sky-blue-dark);"></i>
+                        <div class="icon-box-text">
+                            <h3>輕裝上陣 (純登機箱)</h3>
+                            <p>兩人各一咖登機箱，抵達首爾時無需等待轉盤行李，下機直奔江南汗蒸幕寄放！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert-box">
+                    <div style="font-weight: bold; font-size: 0.95rem; margin-bottom: 5px;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> 回程虎航無託運行李
+                    </div>
+                    <p>回程機票為 SUPER LOW 票價，<strong>不包含免費託運行李</strong>，手提限制為 10 公斤。</p>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--text-dark);">⚠️ 戰利品液體限制警告</h3>
+                    <ul style="padding-left: 20px; font-size: 0.85rem; color: var(--text-light); line-height: 1.6;">
+                        <li>江南醫美開立的<strong>藥膏、保養品</strong>。</li>
+                        <li>明洞購買的<strong>化妝水、精華液、乳液</strong>。</li>
+                        <li>只要「單瓶容器」容量標示<strong>超過 100ml</strong>（就算裡面只剩一點點），一律<strong>禁止</strong>帶上飛機！</li>
+                        <li style="color: #D35400; font-weight: bold; margin-top: 5px;">建議：若買太多液體或超重，請務必於起飛 4 小時前上虎航官網加購託運行李。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ====== Slide 4: 預算 ====== -->
+            <div class="swiper-slide">
+                <div class="section-title"><i class="fa-solid fa-calculator"></i> 預算概估</div>
+                <div class="card">
+                    <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 15px; text-align: center;">
+                        填入各項目金額，方便掌握旅費 (單位：TWD)
+                    </p>
+                    
+                    <div class="budget-row">
+                        <span>✈️ 來回機票</span>
+                        <span class="price">約 4,435 起</span>
+                    </div>
+                    <div class="budget-row">
+                        <span>🏨 弘大住宿 (5晚)</span>
+                        <span class="price">待確認</span>
+                    </div>
+                    <div class="budget-row">
+                        <span>🎸 KINTEX 門票</span>
+                        <span class="price">待確認</span>
+                    </div>
+                    <div class="budget-row">
+                        <span>🪄 醫美療程</span>
+                        <span class="price">依諮詢而定</span>
+                    </div>
+                    <div class="budget-row">
+                        <span>🚇 交通與網卡</span>
+                        <span class="price">約 1,000</span>
+                    </div>
+                    <div class="budget-row">
+                        <span>🍔 飲食與雜支</span>
+                        <span class="price">約 6,000</span>
+                    </div>
+
+                    <div class="budget-total">
+                        <span>預估總計 / 每人</span>
+                        <span style="color: var(--sky-blue-dark);">自行加總</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 底部導覽列 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchMainTab(0)">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>行程</span>
+        </button>
+        <button class="nav-item" onclick="switchMainTab(1)">
+            <i class="fa-solid fa-train-subway"></i>
+            <span>交通</span>
+        </button>
+        <button class="nav-item" onclick="switchMainTab(2)">
+            <i class="fa-solid fa-bed"></i>
+            <span>住宿</span>
+        </button>
+        <button class="nav-item" onclick="switchMainTab(3)">
+            <i class="fa-solid fa-suitcase-rolling"></i>
+            <span>行李</span>
+        </button>
+        <button class="nav-item" onclick="switchMainTab(4)">
+            <i class="fa-solid fa-wallet"></i>
+            <span>預算</span>
+        </button>
+    </nav>
+
+    <script>
+        // ====== 全局變數 ======
+        let startX = 0;
+        let currentMainIdx = 0;
+        const mainWrapper = document.getElementById('swiperWrapper');
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        const dayNavContainer = document.getElementById('dayNavContainer');
+
+        // ====== 底部導覽 & 主滑動邏輯 ======
+        function switchMainTab(idx) {
+            currentMainIdx = idx;
+            mainWrapper.style.transform = `translateX(-${idx * 20}%)`; // 5個分頁，每個 20%
+            
+            navItems.forEach((btn, i) => {
+                if (i === idx) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // 監聽主容器滑動
+        mainWrapper.addEventListener('touchstart', (e) => {
+            // 如果觸控起點在 Day Tabs 上，不處理主容器滑動（避免衝突）
+            if(e.target.closest('#dayNavContainer')) return;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        mainWrapper.addEventListener('touchend', (e) => {
+            if(e.target.closest('#dayNavContainer')) return;
+            let endX = e.changedTouches[0].clientX;
+            let diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0 && currentMainIdx < 4) {
+                    switchMainTab(currentMainIdx + 1); // 向左滑 -> 下一頁
+                } else if (diffX < 0 && currentMainIdx > 0) {
+                    switchMainTab(currentMainIdx - 1); // 向右滑 -> 上一頁
+                }
+            }
+        }, { passive: true });
+
+        // ====== 每日行程切換邏輯 ======
+        function switchDay(dayNum) {
+            // 隱藏所有 day 內容
+            document.querySelectorAll('.day-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // 移除所有 tab 的 active
+            document.querySelectorAll('.day-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // 顯示選擇的 Day
+            document.getElementById(`day-${dayNum}`).classList.add('active');
+            // 將對應按鈕加上 active (利用 nth-child，因為 dayNum 從 1 開始)
+            const activeTab = document.querySelector(`.day-tab:nth-child(${dayNum})`);
+            activeTab.classList.add('active');
+            
+            // 讓選中的日期按鈕自動捲動到畫面中央
+            activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
