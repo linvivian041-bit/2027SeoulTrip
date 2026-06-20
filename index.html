@@ -137,6 +137,7 @@
             overflow-x: auto;
             padding: 10px 0 15px 0;
             scrollbar-width: none; /* Firefox */
+            scroll-behavior: smooth;
         }
         .day-nav-container::-webkit-scrollbar {
             display: none; /* Chrome/Safari */
@@ -627,7 +628,7 @@
                     
                     <div class="budget-row">
                         <span>✈️ 來回機票</span>
-                        <span class="price">約 4,435 起</span>
+                        <span class="price">7,371</span>
                     </div>
                     <div class="budget-row">
                         <span>🏨 弘大住宿 (5晚)</span>
@@ -738,12 +739,15 @@
 
             // 顯示選擇的 Day
             document.getElementById(`day-${dayNum}`).classList.add('active');
+            
             // 將對應按鈕加上 active (利用 nth-child，因為 dayNum 從 1 開始)
             const activeTab = document.querySelector(`.day-tab:nth-child(${dayNum})`);
             activeTab.classList.add('active');
             
-            // 讓選中的日期按鈕自動捲動到畫面中央
-            activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            // 使用 scrollLeft 滑動讓按鈕置中，取代原本會導致畫面偏移的 scrollIntoView
+            const container = document.getElementById('dayNavContainer');
+            const scrollPos = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
+            container.scrollTo({ left: scrollPos, behavior: 'smooth' });
         }
     </script>
 </body>
