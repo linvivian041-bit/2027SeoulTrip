@@ -75,7 +75,7 @@
             align-items: center;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
             z-index: 1000;
-            padding-bottom: env(safe-area-inset-bottom); /* 適配 iPhone 底部 */
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .nav-item {
@@ -118,13 +118,13 @@
 
         .swiper-wrapper {
             display: flex;
-            width: 500%; /* 5 個分頁 */
+            width: 500%;
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             will-change: transform;
         }
 
         .swiper-slide {
-            width: 20%; /* 每個佔 1/5 */
+            width: 20%;
             padding: 0 16px;
             max-width: 600px;
             margin: 0 auto;
@@ -136,11 +136,11 @@
             gap: 10px;
             overflow-x: auto;
             padding: 10px 0 15px 0;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
             scroll-behavior: smooth;
         }
         .day-nav-container::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
+            display: none;
         }
 
         .day-tab {
@@ -341,92 +341,116 @@
                         <div class="event-desc">搭乘真航空 LJ734，準備在飛機上補眠。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">清晨 - 上午</span>
-                        <div class="event-header">
-                            <div class="event-title">汗蒸幕放鬆 (Spa Lei)</div>
-                            <a href="https://maps.google.com/?q=Spa+Lei+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
-                        </div>
-                        <div class="event-desc">江南女性專屬汗蒸幕，洗去疲憊補眠，行李可寄放櫃檯。</div>
+                        <span class="event-time">05:00</span>
+                        <div class="event-header"><div class="event-title">抵達與入境準備</div></div>
+                        <div class="event-desc">辦理入境手續、提領行李，並在超商儲值 T-money 交通卡。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">下午</span>
-                        <div class="event-header">
-                            <div class="event-title">江南醫美行程</div>
-                            <a href="https://maps.google.com/?q=Gangnam+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
-                        </div>
-                        <div class="event-desc">預約好的變美重頭戲，精緻療程與專業諮詢。</div>
+                        <span class="event-time">07:00</span>
+                        <div class="event-header"><div class="event-title">機場快線 AREX</div></div>
+                        <div class="event-desc">搭乘直達車抵達「首爾站」。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">傍晚 - 晚上</span>
-                        <div class="event-header">
-                            <div class="event-title">Starfield COEX & 晚餐</div>
-                            <a href="https://maps.google.com/?q=Starfield+COEX+Mall" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        <span class="event-time">08:00</span>
+                        <div class="event-header"><div class="event-title">Sparex 汗蒸幕 (東大門店)</div></div>
+                        <div class="event-desc">搭乘地鐵4號線前往，洗漱放鬆休息，洗去紅眼班機的疲憊。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">11:00</span>
+                        <div class="event-header"><div class="event-title">行李寄放</div></div>
+                        <div class="event-desc">將行李箱寄放於 Sparex。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">11:30</span>
+                        <div class="event-header"><div class="event-title">東大門周邊漫遊</div></div>
+                        <div class="event-desc">
+                            <ul style="padding-left: 20px; font-size: 0.85rem; line-height: 1.6;">
+                                <li><strong>美食：</strong>陳玉華一隻雞、廣藏市場、星巴克</li>
+                                <li><strong>景點：</strong>科達、興仁之門公園賞夕陽</li>
+                                <li><strong>血拼：</strong>MIMILINE、NYUNYU (飾品服飾不同店)、TEAM204</li>
+                            </ul>
                         </div>
-                        <div class="event-desc">朝聖星空圖書館拍美照，享受江南晚餐。之後回弘大 View-HongDae Check-in <strong style="color:#D35400;">(最晚需於23:00前)</strong>。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">18:30</span>
+                        <div class="event-header"><div class="event-title">前往住宿 Check-in</div></div>
+                        <div class="event-desc">回 Sparex 領取行李，前往旅館 View-HongDae 辦理入住。</div>
                     </div>
                 </div>
 
                 <!-- Day 2 內容 -->
                 <div class="day-content" id="day-2">
                     <div class="card">
-                        <span class="event-time">早上</span>
-                        <div class="event-header">
-                            <div class="event-title">安國站人氣早餐</div>
-                            <a href="https://maps.google.com/?q=Cafe+Onion+Anguk" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
-                        </div>
-                        <div class="event-desc">Cafe Onion 或 倫敦貝果博物館，用精緻烘焙開啟一天。</div>
+                        <span class="event-time">08:00</span>
+                        <div class="event-header"><div class="event-title">安國站人氣早餐</div></div>
+                        <div class="event-desc">用精緻美味的烘焙開啟一天。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">上午</span>
+                        <span class="event-time">09:30</span>
                         <div class="event-header">
-                            <div class="event-title">景福宮 ＆ 北村韓屋村</div>
+                            <div class="event-title">北村韓屋村</div>
+                            <a href="https://maps.google.com/?q=Bukchon+Hanok+Village" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                        </div>
+                        <div class="event-desc">漫步於傳統韓屋巷弄間，感受復古風情。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">11:30</span>
+                        <div class="event-header">
+                            <div class="event-title">景福宮</div>
                             <a href="https://maps.google.com/?q=Gyeongbokgung+Palace" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">換上華美韓服，漫步古色古香的宮殿與傳統巷弄。</div>
+                        <div class="event-desc">在壯麗的傳統宮殿前拍照打卡。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">下午</span>
+                        <span class="event-time">13:00</span>
+                        <div class="event-header"><div class="event-title">午餐時間</div></div>
+                        <div class="event-desc">於安國站或景福宮周邊享用美味午餐。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">14:30</span>
                         <div class="event-header">
                             <div class="event-title">益善洞文創巷弄</div>
                             <a href="https://maps.google.com/?q=Ikseondong+Hanok+Village" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">逛逛韓屋改建的復古文創小店與精緻下午茶。</div>
+                        <div class="event-desc">逛逛由傳統韓屋改建的文青選物小店與特色咖啡廳。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">傍晚 - 晚上</span>
+                        <span class="event-time">17:30</span>
                         <div class="event-header">
-                            <div class="event-title">南山首爾塔夜景</div>
+                            <div class="event-title">晚餐 ＆ 南山首爾塔夜景</div>
                             <a href="https://maps.google.com/?q=N+Seoul+Tower" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">登塔觀看浪漫日落與首爾城市百萬夜景。</div>
+                        <div class="event-desc">享用晚餐後前往南山首爾塔觀看百萬夜景。(轉乘資訊請見「交通」分頁)</div>
                     </div>
                 </div>
 
                 <!-- Day 3 內容 -->
                 <div class="day-content" id="day-3">
                     <div class="card">
-                        <span class="event-time">上午</span>
+                        <span class="event-time">10:00</span>
                         <div class="event-header">
-                            <div class="event-title">望遠市場在地美食</div>
+                            <div class="event-title">望遠市場美食</div>
                             <a href="https://maps.google.com/?q=Mangwon+Market" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
                         <div class="event-desc">大啖刀削麵、酥炸可樂餅、炸雞丁，感受在地煙火氣。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">下午</span>
+                        <span class="event-time">12:00</span>
                         <div class="event-header">
-                            <div class="event-title">延南洞文青散策</div>
+                            <div class="event-title">延南洞</div>
                             <a href="https://maps.google.com/?q=Yeonnam-dong" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">飯店周邊充滿設計感的獨立選物店與特色咖啡廳。</div>
+                        <div class="event-desc">充滿設計感的獨立選物店與特色咖啡廳散策。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">晚上</span>
-                        <div class="event-header">
-                            <div class="event-title">弘大商圈狂歡</div>
-                            <a href="https://maps.google.com/?q=Hongdae+Street" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
-                        </div>
-                        <div class="event-desc">享受街頭藝人表演與逛街掃貨，累了隨時回飯店放戰利品！</div>
+                        <span class="event-time">16:00</span>
+                        <div class="event-header"><div class="event-title">飯店休息</div></div>
+                        <div class="event-desc">回 View-HongDae 放下戰利品，稍作休息充飽體力。</div>
+                    </div>
+                    <div class="card card.yellow-accent">
+                        <span class="event-time">20:00</span>
+                        <div class="event-header"><div class="event-title">Wild Wild 猛男秀 🔥</div></div>
+                        <div class="event-desc">韓國最火熱的女性限定大秀，享受充滿魅力的視覺饗宴！</div>
                     </div>
                 </div>
 
@@ -445,40 +469,38 @@
                 <!-- Day 5 內容 -->
                 <div class="day-content" id="day-5">
                     <div class="card">
-                        <span class="event-time">白天</span>
+                        <span class="event-time">全天/傍晚</span>
                         <div class="event-header">
-                            <div class="event-title">現代百貨 (The Hyundai Seoul)</div>
-                            <a href="https://maps.google.com/?q=The+Hyundai+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                            <div class="event-title">漢江公園 悠閒放鬆</div>
+                            <a href="https://maps.google.com/?q=Hangang+Park" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">首爾最新室內綠意百貨，進駐大量快閃店與設計師品牌。</div>
-                    </div>
-                    <div class="card">
-                        <span class="event-time">傍晚 - 晚上</span>
-                        <div class="event-header">
-                            <div class="event-title">汝矣島漢江公園</div>
-                            <a href="https://maps.google.com/?q=Yeouido+Hangang+Park" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
-                        </div>
-                        <div class="event-desc">租野餐墊，體驗漢江煮麵機配外送橋村炸雞，享受晚風。</div>
+                        <div class="event-desc">體驗經典漢江浪漫！租野餐墊坐草地吹微風，用自動煮麵機煮漢江泡麵，配上橋村炸雞。</div>
                     </div>
                 </div>
 
                 <!-- Day 6 內容 -->
                 <div class="day-content" id="day-6">
                     <div class="card">
-                        <span class="event-time">上午</span>
+                        <span class="event-time">10:30</span>
+                        <div class="event-header">
+                            <div class="event-title">江南 Dr.evers 醫美</div>
+                        </div>
+                        <div class="event-desc">安排好的變美重頭戲，進行專業諮詢與保養療程。</div>
+                    </div>
+                    <div class="card">
+                        <span class="event-time">13:00</span>
                         <div class="event-header">
                             <div class="event-title">清潭洞 FNC 朝聖</div>
                             <a href="https://maps.google.com/?q=FNC+Entertainment+Seoul" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">前往經紀公司大樓打卡，專屬的迷妹朝聖巡禮。</div>
+                        <div class="event-desc">前往 FNC 經紀公司大樓打卡，專屬的迷妹朝聖巡禮。</div>
                     </div>
                     <div class="card">
-                        <span class="event-time">下午</span>
+                        <span class="event-time">下午 - 傍晚</span>
                         <div class="event-header">
-                            <div class="event-title">明洞商圈最後掃貨</div>
-                            <a href="https://maps.google.com/?q=Myeongdong+Street" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
+                            <div class="event-title">自由活動與最後衝刺</div>
                         </div>
-                        <div class="event-desc">將還沒買齊的美妝保養品、伴手禮一次補足。</div>
+                        <div class="event-desc">可於商圈周邊逛街購物，補齊伴手禮與美妝。</div>
                     </div>
                     <div class="card">
                         <span class="event-time">20:00 - 深夜</span>
@@ -486,7 +508,7 @@
                             <div class="event-title">出發機場 ➔ 貴賓室</div>
                             <a href="https://maps.google.com/?q=Incheon+Airport+Terminal+1" target="_blank" class="map-btn"><i class="fa-solid fa-location-dot"></i></a>
                         </div>
-                        <div class="event-desc">回弘大拿行李，搭機場快線至仁川 T1。退稅後進貴賓室休息。</div>
+                        <div class="event-desc">回弘大拿行李，搭機場快線至仁川 T1。退稅後進貴賓室休息，準備搭乘凌晨 00:30 的班機。</div>
                     </div>
                 </div>
 
@@ -504,6 +526,22 @@
 
             <!-- ====== Slide 1: 交通 ====== -->
             <div class="swiper-slide">
+                <div class="section-title"><i class="fa-solid fa-map-signs"></i> 專屬轉乘指南</div>
+                <div class="card yellow-accent">
+                    <div class="icon-box" style="align-items: flex-start;">
+                        <i class="fa-solid fa-bus" style="color: #D35400;"></i>
+                        <div class="icon-box-text">
+                            <h3>益善洞 ➔ 南山首爾塔</h3>
+                            <p style="font-weight: 600; color: var(--text-dark); margin-top: 5px;">【地鐵 轉 公車】</p>
+                            <ol style="margin-top: 5px; padding-left: 20px; font-size: 0.85rem; color: var(--text-light); line-height: 1.6;">
+                                <li>從益善洞的<strong>「鐘路3街站」</strong>搭乘地鐵 <strong>3號線</strong>。</li>
+                                <li>坐 2 站到<strong>「忠武路站」</strong>，從 <strong>2 號出口</strong>出來。</li>
+                                <li>出站後轉乘<strong>「南山公車 01A」</strong>（黃色循環巴士）直達首爾塔。</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="section-title"><i class="fa-solid fa-train-tram"></i> 國內高鐵與接駁</div>
                 <div class="card">
                     <div class="icon-box">
@@ -538,31 +576,6 @@
                         <div class="icon-box-text">
                             <h3>回程：台灣虎航 IT603</h3>
                             <p>7/21 00:30 仁川 T1 ➔ 02:15 桃園 T1</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-title"><i class="fa-solid fa-train"></i> 首爾市區交通</div>
-                <div class="card">
-                    <div class="icon-box">
-                        <i class="fa-solid fa-train-subway"></i>
-                        <div class="icon-box-text">
-                            <h3>機場快線 AREX (一般列車)</h3>
-                            <p>T1/T2 皆可搭乘，約 50-60 分鐘直達「弘大入口站」，無需轉乘最方便。</p>
-                        </div>
-                    </div>
-                    <div class="icon-box">
-                        <i class="fa-solid fa-id-card"></i>
-                        <div class="icon-box-text">
-                            <h3>WOWPASS / T-money</h3>
-                            <p>必備神卡！超商或地鐵站皆可儲值，搭車買東西都靠它。</p>
-                        </div>
-                    </div>
-                    <div class="icon-box">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                        <div class="icon-box-text">
-                            <h3>必備導航 APP</h3>
-                            <p>強烈建議下載 <strong>Naver Map</strong>，在韓國定位比 Google Maps 準確很多。</p>
                         </div>
                     </div>
                 </div>
@@ -715,7 +728,7 @@
         // ====== 底部導覽 & 主滑動邏輯 ======
         function switchMainTab(idx) {
             currentMainIdx = idx;
-            mainWrapper.style.transform = `translateX(-${idx * 20}%)`; // 5個分頁，每個 20%
+            mainWrapper.style.transform = `translateX(-${idx * 20}%)`; 
             
             navItems.forEach((btn, i) => {
                 if (i === idx) btn.classList.add('active');
@@ -726,7 +739,6 @@
 
         // 監聽主容器滑動
         mainWrapper.addEventListener('touchstart', (e) => {
-            // 如果觸控起點在 Day Tabs 上，不處理主容器滑動（避免衝突）
             if(e.target.closest('#dayNavContainer')) return;
             startX = e.touches[0].clientX;
         }, { passive: true });
@@ -738,32 +750,27 @@
             
             if (Math.abs(diffX) > 50) {
                 if (diffX > 0 && currentMainIdx < 4) {
-                    switchMainTab(currentMainIdx + 1); // 向左滑 -> 下一頁
+                    switchMainTab(currentMainIdx + 1);
                 } else if (diffX < 0 && currentMainIdx > 0) {
-                    switchMainTab(currentMainIdx - 1); // 向右滑 -> 上一頁
+                    switchMainTab(currentMainIdx - 1);
                 }
             }
         }, { passive: true });
 
         // ====== 每日行程切換邏輯 ======
         function switchDay(dayNum) {
-            // 隱藏所有 day 內容
             document.querySelectorAll('.day-content').forEach(content => {
                 content.classList.remove('active');
             });
-            // 移除所有 tab 的 active
             document.querySelectorAll('.day-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // 顯示選擇的 Day
             document.getElementById(`day-${dayNum}`).classList.add('active');
             
-            // 將對應按鈕加上 active (利用 nth-child，因為 dayNum 從 1 開始)
             const activeTab = document.querySelector(`.day-tab:nth-child(${dayNum})`);
             activeTab.classList.add('active');
             
-            // 使用 scrollLeft 滑動讓按鈕置中，取代原本會導致畫面偏移的 scrollIntoView
             const container = document.getElementById('dayNavContainer');
             const scrollPos = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
             container.scrollTo({ left: scrollPos, behavior: 'smooth' });
